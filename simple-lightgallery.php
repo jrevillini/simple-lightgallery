@@ -120,13 +120,13 @@ function simplelightGallery_enqueue_properties_scripts() {
 	}
 }
 
-function simplelightGallery_add_admin_menu(  ) { 
+function simplelightGallery_add_admin_menu() { 
 
 	add_options_page( 'Simple lightGallery', 'Simple lightGallery', 'manage_options', 'simple_lightgallery', 'simplelightGallery_options_page' );
 
 }
 
-function simplelightGallery_settings_init(  ) { 
+function simplelightGallery_settings_init() { 
 
 	register_setting( 'pluginPage', 'simplelightGallery_settings' );
 
@@ -139,7 +139,7 @@ function simplelightGallery_settings_init(  ) {
 	
 	add_settings_field( 
 		'simplelightGallery_version',
-		__( 'Which Version?', 'simplelightGallery' ), 
+		__( 'Which lightGallery version to use?', 'simplelightGallery' ), 
 		'simplelightGallery_version_render', 
 		'pluginPage', 
 		'simplelightGallery_pluginPage_section' 
@@ -172,7 +172,7 @@ function simplelightGallery_settings_init(  ) {
 
 }
 
-function simplelightGallery_version_render(  ) { 
+function simplelightGallery_version_render() { 
 
 	$options = get_option( 'simplelightGallery_settings' );
 	if ( isset( $options['version'] ) ) {
@@ -187,7 +187,7 @@ function simplelightGallery_version_render(  ) {
 }
 
 
-function simplelightGallery_post_types_render(  ) { 
+function simplelightGallery_post_types_render() { 
 
 	$post_types = get_post_types();
 
@@ -210,7 +210,7 @@ function simplelightGallery_post_types_render(  ) {
 }
 
 
-function simplelightGallery_taxonomies_render(  ) {
+function simplelightGallery_taxonomies_render() {
 
 	$taxonomies = get_taxonomies();
 
@@ -232,7 +232,7 @@ function simplelightGallery_taxonomies_render(  ) {
 
 }
 
-function simplelightGallery_plugins_render(  ) {
+function simplelightGallery_plugins_render() {
 
 	$plugins = array( 'autoplay', 'comment', 'fullscreen', 'hash', 'mediumZoom', 'pager', 'relativeCaption', 'rotate', 'share', 'thumbnail', 'video', 'zoom' );
 
@@ -247,7 +247,7 @@ function simplelightGallery_plugins_render(  ) {
 }
 
 
-function simplelightGallery_options_page(  ) { 
+function simplelightGallery_options_page() { 
 		?>
 		<form action='options.php' method='post'>
 
