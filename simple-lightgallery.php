@@ -132,8 +132,8 @@ function simplelightGallery_settings_init(  ) {
 
 	add_settings_section(
 		'simplelightGallery_pluginPage_section', 
-		__( 'An integration of Lightgallery javascript to Wordpress', 'simplelightGallery' ), 
-		'simplelightGallery_settings_section_callback', 
+		sprintf(__( 'An integration of <a href="%s" target="%s">Lightgallery</a> javascript to Wordpress', 'simplelightGallery' ), 'https://www.lightgalleryjs.com/', '_blank'),
+		null, 
 		'pluginPage'
 	);
 	
@@ -243,13 +243,6 @@ function simplelightGallery_plugins_render(  ) {
 		<label for="<?php echo $plugin; ?>"> <?php echo $plugin; ?></label><br>
 	<?php } ?>
 	<?php
-
-}
-
-
-function simplelightGallery_settings_section_callback(  ) { 
-
-	echo __( 'This section description', 'simplelightGallery' );
 
 }
 
