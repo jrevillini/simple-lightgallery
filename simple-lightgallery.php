@@ -8,19 +8,53 @@ Version: 1.0.0
 Author URI: https://themata4all.com
 */
 
-add_action( 'admin_enqueue_scripts', 'jquery_chosen_enqueue_assets', -99 );
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_action( 'wp_enqueue_scripts', 'simplelightGallery_enqueue_properties_scripts' );
-add_action( 'admin_menu', 'simplelightGallery_add_admin_menu' );
-add_action( 'admin_init', 'simplelightGallery_settings_init' );
+if ( ! class_exists( 'Simple_lightGallery' ) ) :
 
-function jquery_chosen_enqueue_assets( $hook_suffix ) {
-	if ( 'settings_page_simple_lightgallery' == $hook_suffix ) {
-		wp_enqueue_script( 'jquery-chosen', plugin_dir_url( __FILE__ ) . 'assets/chosen/chosen.jquery.min.js', array( 'jquery' ), '2.2.1' );
-		wp_enqueue_script( 'jquery-chosen-lightgallery', plugin_dir_url( __FILE__ ) . 'assets/chosen/simple.lightgallery.chosen.js', array( 'jquery-chosen' ), '2.2.1' );
-		wp_enqueue_style( 'jquery-chosen', plugin_dir_url( __FILE__ ) . 'assets/chosen/chosen.min.css', array(), '2.2.1' );
+/**
+ * Main Simple lightGallery Class
+ *
+ * @class Simple_lightGallery
+ * @version	1.0.0
+ */
+class Simple_lightGallery {
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		// Define constants
+		//$this->define_constants();
+
+		// Include required files
+		$this->includes();
+		
+		// Check for updates
+		//add_action( 'admin_init', array( $this, 'check_for_updates' ), 0 );
+
+		// Display on settings page
+		//add_action( 'sportspress_modules_sidebar', array( $this, 'sidebar' ) );
+		//add_action( 'sportspress_settings_save_modules', array( $this, 'activate_license' ) );
+		//add_action( 'sportspress_settings_save_modules', array( $this, 'deactivate_license' ) );
+	}
+
+	/**
+	 * Include required files
+	*/
+	private function includes() {
+			// load the admin settings page
+			include( dirname( __FILE__ ) . '/includes/class-sl-admin.php' );
 	}
 }
+
+endif;
+
+new Simple_lightGallery();
+
+add_action( 'wp_enqueue_scripts', 'simplelightGallery_enqueue_properties_scripts' );
+
 
 function simplelightGallery_enqueue_properties_scripts() {
 	$options = get_option( 'simplelightGallery_settings' );
@@ -118,148 +152,4 @@ function simplelightGallery_enqueue_properties_scripts() {
 			endswitch;
 		}
 	}
-}
-
-function simplelightGallery_add_admin_menu() { 
-
-	add_options_page( 'Simple lightGallery', 'Simple lightGallery', 'manage_options', 'simple_lightgallery', 'simplelightGallery_options_page' );
-
-}
-
-function simplelightGallery_settings_init() { 
-
-	register_setting( 'pluginPage', 'simplelightGallery_settings' );
-
-	add_settings_section(
-		'simplelightGallery_pluginPage_section', 
-		sprintf(__( 'An integration of <a href="%s" target="%s">Lightgallery</a> javascript to Wordpress', 'simplelightGallery' ), 'https://www.lightgalleryjs.com/', '_blank'),
-		null, 
-		'pluginPage'
-	);
-	
-	add_settings_field( 
-		'simplelightGallery_version',
-		__( 'Which lightGallery version to use?', 'simplelightGallery' ), 
-		'simplelightGallery_version_render', 
-		'pluginPage', 
-		'simplelightGallery_pluginPage_section' 
-	);
-
-	add_settings_field( 
-		'simplelightGallery_post_types',
-		__( 'In which Post Type pages to enable this?', 'simplelightGallery' ), 
-		'simplelightGallery_post_types_render', 
-		'pluginPage', 
-		'simplelightGallery_pluginPage_section' 
-	);
-
-	add_settings_field( 
-		'simplelightGallery_taxonomies', 
-		__( 'In which Taxonomy pages to enable this?', 'simplelightGallery' ), 
-		'simplelightGallery_taxonomies_render', 
-		'pluginPage', 
-		'simplelightGallery_pluginPage_section' 
-	);
-	
-	add_settings_field( 
-		'simplelightGallery_plugins', 
-		__( 'Which lightGallery plugins should be enabled?', 'simplelightGallery' ), 
-		'simplelightGallery_plugins_render', 
-		'pluginPage', 
-		'simplelightGallery_pluginPage_section' 
-	);
-
-
-}
-
-function simplelightGallery_version_render() { 
-
-	$options = get_option( 'simplelightGallery_settings' );
-	if ( isset( $options['version'] ) ) {
-		$version = $options['version'];
-	}else{
-		$version = 1;
-	}
-	?>
-	<input type="radio" name="simplelightGallery_settings[version]" value="1" <?php checked(1, $version, true); ?>>v1.10.0
-	<input type="radio" name="simplelightGallery_settings[version]" value="2" <?php checked(2, $version, true); ?>>v2.2.1
-	<?php
-}
-
-
-function simplelightGallery_post_types_render() { 
-
-	$post_types = get_post_types();
-
-	$options = get_option( 'simplelightGallery_settings' );
-	if ( isset( $options['lightgallery_post_types'] ) ) {
-		$selected_post_types = (array) $options['lightgallery_post_types'];
-	}else{
-		$selected_post_types = array();
-	}
-	?>
-	<select name="simplelightGallery_settings[lightgallery_post_types][]" id="lightgallery_post_types" multiple>
-	<?php foreach ( $post_types as $key => $name ) { 
-			$selected = in_array( $name, $selected_post_types ) ? ' selected="selected" ' : '';
-	?>
-		<option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $name; ?></option>
-	<?php } ?>
-	</select>
-	<?php
-
-}
-
-
-function simplelightGallery_taxonomies_render() {
-
-	$taxonomies = get_taxonomies();
-
-	$options = get_option( 'simplelightGallery_settings' );
-	if ( isset( $options['lightgallery_taxonomies'] ) ) {
-		$selected_taxonomies = (array) $options['lightgallery_taxonomies'];
-	}else{
-		$selected_taxonomies = array();
-	}
-	?>
-	<select name="simplelightGallery_settings[lightgallery_taxonomies][]" id="lightgallery_taxonomies" multiple>
-	<?php foreach ( $taxonomies as $key => $name ) { 
-			$selected = in_array( $name, $selected_taxonomies ) ? ' selected="selected" ' : '';
-	?>
-		<option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $name; ?></option>
-	<?php } ?>
-	</select>
-	<?php
-
-}
-
-function simplelightGallery_plugins_render() {
-
-	$plugins = array( 'autoplay', 'comment', 'fullscreen', 'hash', 'mediumZoom', 'pager', 'relativeCaption', 'rotate', 'share', 'thumbnail', 'video', 'zoom' );
-
-	$options = get_option( 'simplelightGallery_settings' );
-	?>
-	<?php foreach ( $plugins as $plugin ) { ?>
-		<input type="checkbox" id="<?php echo $plugin; ?>" name="simplelightGallery_settings[plugins][<?php echo $plugin; ?>]" value="1"<?php checked( isset( $options['plugins'][$plugin] ) ); ?> />
-		<label for="<?php echo $plugin; ?>"> <?php echo $plugin; ?></label><br>
-	<?php } ?>
-	<?php
-
-}
-
-
-function simplelightGallery_options_page() { 
-		?>
-		<form action='options.php' method='post'>
-
-			<h2>Simple lightGallery</h2>
-
-			<?php
-			settings_fields( 'pluginPage' );
-			do_settings_sections( 'pluginPage' );
-			submit_button();
-			?>
-
-		</form>
-		<?php
-
 }
