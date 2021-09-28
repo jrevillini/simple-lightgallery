@@ -26,7 +26,7 @@ class Simple_lightGallery {
 	 */
 	public function __construct() {
 		// Define constants
-		//$this->define_constants();
+		$this->define_constants();
 
 		// Include required files
 		$this->includes();
@@ -38,6 +38,14 @@ class Simple_lightGallery {
 		//add_action( 'sportspress_modules_sidebar', array( $this, 'sidebar' ) );
 		//add_action( 'sportspress_settings_save_modules', array( $this, 'activate_license' ) );
 		//add_action( 'sportspress_settings_save_modules', array( $this, 'deactivate_license' ) );
+	}
+	
+	/**
+	 * Define constants
+	*/
+	private function define_constants() {
+		if ( !defined( 'SL_PLUGIN_BASE' ) )
+			define( 'SL_PLUGIN_BASE', plugin_basename( __FILE__ ) );
 	}
 
 	/**
