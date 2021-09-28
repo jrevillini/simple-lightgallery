@@ -13,6 +13,7 @@ class SLG_Admin {
 	 * Constructor
 	 */
 	public function __construct() {
+
 		//Hooks
 		add_action( 'admin_menu', array( $this, 'simplelightGallery_add_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'simplelightGallery_settings_init' ) );
@@ -82,13 +83,15 @@ class SLG_Admin {
 			'simplelightGallery_pluginPage_section' 
 		);
 		
-		add_settings_field( 
-			'simplelightGallery_plugins', 
-			__( 'Which lightGallery v2 plugins should be enabled?', 'simplelightGallery' ), 
-			array( $this, 'simplelightGallery_plugins_render' ), 
-			'pluginPage', 
-			'simplelightGallery_pluginPage_section' 
-		);
+		if ( SLG_Front::$version == 2 ) {
+			add_settings_field( 
+				'simplelightGallery_plugins', 
+				__( 'Which lightGallery v2 plugins should be enabled?', 'simplelightGallery' ), 
+				array( $this, 'simplelightGallery_plugins_render' ), 
+				'pluginPage', 
+				'simplelightGallery_pluginPage_section' 
+			);
+		}
 	}
 	
 	public function simplelightGallery_version_render() { 
