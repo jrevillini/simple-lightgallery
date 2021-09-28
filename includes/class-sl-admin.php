@@ -19,7 +19,7 @@ class SLG_Admin {
 		add_action( 'admin_init', array( $this, 'simplelightGallery_settings_init' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'jquery_chosen_enqueue_assets' ), -99 );
 		
-		add_filter( 'plugin_action_links_' . SL_PLUGIN_BASE,  array( $this, 'slg_plugin_settings_link' ) );
+		add_filter( 'plugin_action_links_' . SL_PLUGIN_BASE,  array( $this, 'simplelightGallery_plugin_settings_link' ) );
 	}
 	
 	public function simplelightGallery_add_admin_menu() { 
@@ -39,7 +39,7 @@ class SLG_Admin {
 		<?php
 	}
 	
-	public function slg_plugin_settings_link( $links ) { 
+	public function simplelightGallery_plugin_settings_link( $links ) { 
 		$plink = array(
 						'<a href="' . admin_url( 'options-general.php?page=simple_lightgallery' ) . '">Settings</a>',
 					);
