@@ -1,11 +1,14 @@
 <?php
 /**
 Plugin Name: Simple lightGallery
-Plugin URI: https://themata4all.com
-Description: An integration of lightGallery javascript v1 and v2 to Wordpress
-Author: Savvas Hadjigeorgiou
+Description: An integration of lightGallery javascript v1 and v2 to WordPress
+Author: Savvas
+Author URI: https://profiles.wordpress.org/savvasha/
 Version: 1.0.0
-Author URI: https://themata4all.com
+Requires at least: 5.3
+Requires PHP: 7.2
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Exit if accessed directly
