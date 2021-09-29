@@ -1,2 +1,2 @@
-# simple-lightgallery
-A simple plugin to import lightgallery script to Wordpress 
+# simple-lightGallery
+A simple plugin to import lightGallery script to WordPress 
