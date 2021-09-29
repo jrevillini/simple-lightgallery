@@ -46,9 +46,9 @@ class Simple_lightGallery {
 	*/
 	private function includes() {
 			//load the needed frontend files
-			include( dirname( __FILE__ ) . '/includes/class-sl-front.php' );
+			include( dirname( __FILE__ ) . '/includes/class-slg-front.php' );
 			// load the admin settings page
-			include( dirname( __FILE__ ) . '/includes/class-sl-admin.php' );
+			include( dirname( __FILE__ ) . '/includes/class-slg-admin.php' );
 	}
 }
 
