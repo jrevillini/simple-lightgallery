@@ -122,7 +122,7 @@ class SLG_Admin {
 		<?php foreach ( $post_types as $key => $name ) { 
 				$selected = in_array( $name, $selected_post_types ) ? ' selected="selected" ' : '';
 		?>
-			<option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $name; ?></option>
+			<option value="<?php echo esc_attr( $key ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_attr( $name ); ?></option>
 		<?php } ?>
 		</select>
 		<?php
@@ -143,7 +143,7 @@ class SLG_Admin {
 		<?php foreach ( $taxonomies as $key => $name ) { 
 				$selected = in_array( $name, $selected_taxonomies ) ? ' selected="selected" ' : '';
 		?>
-			<option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $name; ?></option>
+			<option value="<?php echo esc_attr( $key ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_attr( $name ); ?></option>
 		<?php } ?>
 		</select>
 		<?php
@@ -155,8 +155,8 @@ class SLG_Admin {
 		$options = get_option( 'simplelightGallery_settings' );
 		?>
 		<?php foreach ( $plugins as $plugin ) { ?>
-			<input type="checkbox" id="<?php echo $plugin; ?>" name="simplelightGallery_settings[plugins][<?php echo $plugin; ?>]" value="1"<?php checked( isset( $options['plugins'][$plugin] ) ); ?> />
-			<label for="<?php echo $plugin; ?>"> <?php echo $plugin; ?></label><br>
+			<input type="checkbox" id="<?php echo esc_attr( $plugin ); ?>" name="simplelightGallery_settings[plugins][<?php echo esc_attr( $plugin ); ?>]" value="1"<?php checked( isset( $options['plugins'][$plugin] ) ); ?> />
+			<label for="<?php echo esc_attr( $plugin ); ?>"> <?php echo esc_attr( $plugin ); ?></label><br>
 		<?php } ?>
 		<?php
 	}
