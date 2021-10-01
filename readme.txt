@@ -5,7 +5,7 @@ Tags: lightGallery, gallery, photography, images, theme, template, style, jquery
 Requires at least: 5.3
 Tested up to: 5.8.1
 Requires PHP: 5.6.40
-Stable tag: trunk
+Stable tag: 1.0.0
 
 An integration of lightGallery javascript v1 and v2 to WordPress
 
