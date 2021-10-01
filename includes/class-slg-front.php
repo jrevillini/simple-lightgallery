@@ -4,10 +4,10 @@
  * Frontend functionality
  * @package Simple lightGallery
  * @subpackage Front
- * @author Savvas Hadjigeorgiou
+ * @author Savvas
  */
  
-class SLG_Front {
+class simplelightGallery_Front {
 	
 	/** @var int The selected version. */
 	public static $version;
@@ -132,4 +132,4 @@ class SLG_Front {
 	
 }
 
-new SLG_Front();
+new simplelightGallery_Front();

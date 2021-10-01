@@ -4,10 +4,10 @@
  * Admin functionality
  * @package Simple lightGallery
  * @subpackage Admin
- * @author Savvas Hadjigeorgiou
+ * @author Savvas
  */
  
-class SLG_Admin {
+class simplelightGallery_Admin {
 
 	/**
 	 * Constructor
@@ -19,7 +19,7 @@ class SLG_Admin {
 		add_action( 'admin_init', array( $this, 'simplelightGallery_settings_init' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'jquery_chosen_enqueue_assets' ), -99 );
 		
-		add_filter( 'plugin_action_links_' . SL_PLUGIN_BASE,  array( $this, 'simplelightGallery_plugin_settings_link' ) );
+		add_filter( 'plugin_action_links_' . simplelightGallery_PLUGIN_BASE,  array( $this, 'simplelightGallery_plugin_settings_link' ) );
 	}
 	
 	public function simplelightGallery_add_admin_menu() { 
@@ -83,7 +83,7 @@ class SLG_Admin {
 			'simplelightGallery_pluginPage_section' 
 		);
 		
-		if ( SLG_Front::$version == 2 ) {
+		if ( simplelightGallery_Front::$version == 2 ) {
 			add_settings_field( 
 				'simplelightGallery_plugins', 
 				__( 'Which lightGallery v2 plugins should be enabled?', 'simplelightGallery' ), 
@@ -171,4 +171,4 @@ class SLG_Admin {
 	
 }
 
-new SLG_Admin();
+new simplelightGallery_Admin();

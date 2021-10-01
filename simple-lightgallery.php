@@ -40,8 +40,8 @@ class Simple_lightGallery {
 	 * Define constants
 	*/
 	private function define_constants() {
-		if ( !defined( 'SL_PLUGIN_BASE' ) )
-			define( 'SL_PLUGIN_BASE', plugin_basename( __FILE__ ) );
+		if ( !defined( 'simplelightGallery_PLUGIN_BASE' ) )
+			define( 'simplelightGallery_PLUGIN_BASE', plugin_basename( __FILE__ ) );
 	}
 
 	/**
