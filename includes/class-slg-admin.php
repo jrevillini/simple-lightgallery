@@ -18,7 +18,7 @@ class simplelightGallery_Admin {
 		add_action( 'admin_menu', array( $this, 'simplelightGallery_add_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'simplelightGallery_settings_init' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'jquery_chosen_enqueue_assets' ), -99 );
-		add_action( 'admin_footer', array( $this, 'simplelightGallery_action_javascript' ) );
+		add_action( 'admin_head', array( $this, 'simplelightGallery_action_javascript' ) );
 		
 		add_filter( 'plugin_action_links_' . simplelightGallery_PLUGIN_BASE,  array( $this, 'simplelightGallery_plugin_settings_link' ) );
 		
@@ -103,7 +103,7 @@ class simplelightGallery_Admin {
 			$version = 1;
 		}
 		?>
-		<input type="radio" name="simplelightGallery_settings[version]" class="version" value="1" <?php checked(1, $version, true); ?>>v1.10.0
+		<input type="radio" name="simplelightGallery_settings[version]" class="version" value="1" <?php checked(1, $version, true); ?>>v1.10.0 (jQuery dependency)
 		<input type="radio" name="simplelightGallery_settings[version]" class="version" value="2" <?php checked(2, $version, true); ?>>v2.2.1
 		<?php
 	}
