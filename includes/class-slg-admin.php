@@ -18,8 +18,10 @@ class simplelightGallery_Admin {
 		add_action( 'admin_menu', array( $this, 'simplelightGallery_add_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'simplelightGallery_settings_init' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'jquery_chosen_enqueue_assets' ), -99 );
+		add_action( 'admin_footer', array( $this, 'simplelightGallery_action_javascript' ) );
 		
 		add_filter( 'plugin_action_links_' . simplelightGallery_PLUGIN_BASE,  array( $this, 'simplelightGallery_plugin_settings_link' ) );
+		
 	}
 	
 	public function simplelightGallery_add_admin_menu() { 
@@ -83,15 +85,14 @@ class simplelightGallery_Admin {
 			'simplelightGallery_pluginPage_section' 
 		);
 		
-		if ( simplelightGallery_Front::$version == 2 ) {
-			add_settings_field( 
-				'simplelightGallery_plugins', 
-				__( 'Which lightGallery v2 plugins should be enabled?', 'simplelightGallery' ), 
-				array( $this, 'simplelightGallery_plugins_render' ), 
-				'pluginPage', 
-				'simplelightGallery_pluginPage_section' 
-			);
-		}
+		add_settings_field( 
+			'simplelightGallery_plugins', 
+			__( 'Which lightGallery v2 plugins should be enabled?', 'simplelightGallery' ), 
+			array( $this, 'simplelightGallery_plugins_render' ), 
+			'pluginPage', 
+			'simplelightGallery_pluginPage_section',
+			array( 'class' => 'simplelightGallery_plugins' )
+		);
 	}
 	
 	public function simplelightGallery_version_render() { 
@@ -102,8 +103,8 @@ class simplelightGallery_Admin {
 			$version = 1;
 		}
 		?>
-		<input type="radio" name="simplelightGallery_settings[version]" value="1" <?php checked(1, $version, true); ?>>v1.10.0
-		<input type="radio" name="simplelightGallery_settings[version]" value="2" <?php checked(2, $version, true); ?>>v2.2.1
+		<input type="radio" name="simplelightGallery_settings[version]" class="version" value="1" <?php checked(1, $version, true); ?>>v1.10.0
+		<input type="radio" name="simplelightGallery_settings[version]" class="version" value="2" <?php checked(2, $version, true); ?>>v2.2.1
 		<?php
 	}
 
@@ -155,7 +156,7 @@ class simplelightGallery_Admin {
 		$options = get_option( 'simplelightGallery_settings' );
 		?>
 		<?php foreach ( $plugins as $plugin ) { ?>
-			<input type="checkbox" id="<?php echo esc_attr( $plugin ); ?>" name="simplelightGallery_settings[plugins][<?php echo esc_attr( $plugin ); ?>]" value="1"<?php checked( isset( $options['plugins'][$plugin] ) ); ?> />
+			<input type="checkbox" id="<?php echo esc_attr( $plugin ); ?>" class="simplelightGallery_plugin" name="simplelightGallery_settings[plugins][<?php echo esc_attr( $plugin ); ?>]" value="1"<?php checked( isset( $options['plugins'][$plugin] ) ); ?> />
 			<label for="<?php echo esc_attr( $plugin ); ?>"> <?php echo esc_attr( $plugin ); ?></label><br>
 		<?php } ?>
 		<?php
@@ -167,6 +168,29 @@ class simplelightGallery_Admin {
 			wp_enqueue_script( 'jquery-chosen-lightgallery', plugin_dir_url( __DIR__ ) . 'assets/chosen/simple.lightgallery.chosen.js', array( 'jquery-chosen' ), '2.2.1' );
 			wp_enqueue_style( 'jquery-chosen', plugin_dir_url( __DIR__ ) . 'assets/chosen/chosen.min.css', array(), '2.2.1' );
 		}
+	}
+	
+	public function simplelightGallery_action_javascript() { ?>
+		<script type="text/javascript" >
+		jQuery(document).ready(function($) {
+
+			var version = $('input[type=radio][class=version]:checked').val();
+			if ( version == '1' ){
+				$('tr.simplelightGallery_plugins').hide();
+			}
+			else if ( version == '2' ){
+				$('tr.simplelightGallery_plugins').show();
+			}
+			$('input[type=radio][class=version]').change(function() {
+				if (this.value == '1') {
+					$('tr.simplelightGallery_plugins').hide();
+				}
+				else if (this.value == '2') {
+					$('tr.simplelightGallery_plugins').show();
+				}
+			});
+		});
+		</script> <?php
 	}
 	
 }
