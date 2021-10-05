@@ -8,11 +8,16 @@
  */
  
 class simplelightGallery_Admin {
+	
+	/** @var array The plugins options. */
+	public static $options;
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
+		
+		self::$options = get_option( 'simplelightGallery_settings' );
 
 		//Hooks
 		add_action( 'admin_menu', array( $this, 'simplelightGallery_add_admin_menu' ) );
@@ -93,12 +98,20 @@ class simplelightGallery_Admin {
 			'simplelightGallery_pluginPage_section',
 			array( 'class' => 'simplelightGallery_plugins' )
 		);
+		
+		add_settings_field( 
+			'simplelightGallery_wpgallery', 
+			__( 'Use lightGallery with Wordpress native gallery shortcode [gallery]', 'simplelightGallery' ), 
+			array( $this, 'simplelightGallery_wpgallery_render' ), 
+			'pluginPage', 
+			'simplelightGallery_pluginPage_section' 
+		);
 	}
 	
 	public function simplelightGallery_version_render() { 
-		$options = get_option( 'simplelightGallery_settings' );
-		if ( isset( $options['version'] ) ) {
-			$version = $options['version'];
+
+		if ( isset( self::$options['version'] ) ) {
+			$version = self::$options['version'];
 		}else{
 			$version = 1;
 		}
@@ -112,9 +125,8 @@ class simplelightGallery_Admin {
 	public function simplelightGallery_post_types_render() { 
 		$post_types = get_post_types();
 
-		$options = get_option( 'simplelightGallery_settings' );
-		if ( isset( $options['lightgallery_post_types'] ) ) {
-			$selected_post_types = (array) $options['lightgallery_post_types'];
+		if ( isset( self::$options['lightgallery_post_types'] ) ) {
+			$selected_post_types = (array) self::$options['lightgallery_post_types'];
 		}else{
 			$selected_post_types = array();
 		}
@@ -133,9 +145,8 @@ class simplelightGallery_Admin {
 	public function simplelightGallery_taxonomies_render() {
 		$taxonomies = get_taxonomies();
 
-		$options = get_option( 'simplelightGallery_settings' );
-		if ( isset( $options['lightgallery_taxonomies'] ) ) {
-			$selected_taxonomies = (array) $options['lightgallery_taxonomies'];
+		if ( isset( self::$options['lightgallery_taxonomies'] ) ) {
+			$selected_taxonomies = (array) self::$options['lightgallery_taxonomies'];
 		}else{
 			$selected_taxonomies = array();
 		}
@@ -153,12 +164,17 @@ class simplelightGallery_Admin {
 	public function simplelightGallery_plugins_render() {
 		$plugins = array( 'autoplay', 'comment', 'fullscreen', 'hash', 'mediumZoom', 'pager', 'relativeCaption', 'rotate', 'share', 'thumbnail', 'video', 'zoom' );
 
-		$options = get_option( 'simplelightGallery_settings' );
 		?>
 		<?php foreach ( $plugins as $plugin ) { ?>
-			<input type="checkbox" id="<?php echo esc_attr( $plugin ); ?>" class="simplelightGallery_plugin" name="simplelightGallery_settings[plugins][<?php echo esc_attr( $plugin ); ?>]" value="1"<?php checked( isset( $options['plugins'][$plugin] ) ); ?> />
+			<input type="checkbox" id="<?php echo esc_attr( $plugin ); ?>" class="simplelightGallery_plugin" name="simplelightGallery_settings[plugins][<?php echo esc_attr( $plugin ); ?>]" value="1"<?php checked( isset( self::$options['plugins'][$plugin] ) ); ?> />
 			<label for="<?php echo esc_attr( $plugin ); ?>"> <?php echo esc_attr( $plugin ); ?></label><br>
 		<?php } ?>
+		<?php
+	}
+	
+	public function simplelightGallery_wpgallery_render() {
+		?>
+			<input type="checkbox" id="simplelightGallery_wpgallery" class="simplelightGallery_wpgallery" name="simplelightGallery_settings[wpgallery]" value="1"<?php checked( isset ( self::$options['wpgallery'] ) ); ?> />
 		<?php
 	}
 	

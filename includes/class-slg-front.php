@@ -20,6 +20,9 @@ class simplelightGallery_Front {
 	
 	/** @var array The selected plugins. */
 	public static $selected_plugins;
+	
+	/** @var int Apply to wp gallery shortcode. */
+	public static $wpgallery;
 
 	/**
 	 * Constructor
@@ -50,8 +53,16 @@ class simplelightGallery_Front {
 			self::$version = 1;
 		}
 		
+		if ( isset( $options['wpgallery'] ) ) {
+			self::$wpgallery = $options['wpgallery'];
+		}else{
+			self::$wpgallery = 0;
+		}
+		
 		//Hooks
 		add_action( 'wp_enqueue_scripts', array( $this, 'simplelightGallery_enqueue_properties_scripts' ) );
+		if ( self::$wpgallery )
+			add_filter( 'the_content', array( $this, 'simplelightGallery_inline_js' ), 1 );
 	}
 	
 	public function simplelightGallery_enqueue_properties_scripts() {
@@ -130,6 +141,42 @@ class simplelightGallery_Front {
 		}
 	}
 	
+	public function simplelightGallery_inline_js( $content ) {
+		// Check if gallery shortcode is used
+		if ( !has_shortcode( $content, 'gallery' ) ) return $content;
+		// Check if we're inside the main loop in a single Post.
+		if ( is_singular() && in_the_loop() && is_main_query() ) {
+			if ( in_array( get_post_type(), self::$selected_post_types ) || is_tax( self::$selected_taxonomies ) ) {
+				$ID = get_the_ID();
+				switch ( self::$version ):
+					case 1:
+						$inline_script = "<script type=\"text/javascript\">
+													jQuery(document).ready(function($) {
+														$('.galleryid-$ID').each(function(i, obj) {
+															$('#'+$(this).prop('id')).lightGallery({
+																selector: 'a',
+															});
+														});
+													});
+										</script>";
+						break;
+					case 2:
+						$inline_script = "<script type=\"text/javascript\">
+											jQuery('.galleryid-$ID').each(function(i, obj) {
+												lightGallery(document.getElementById(jQuery(this).prop('id')), {
+													plugins: [lgZoom, lgThumbnail],
+													selector: 'a',
+												});
+											});
+										</script>";
+						break;
+				endswitch;
+				return $content . $inline_script;
+			}
+			return $content;
+		}
+		return $content;
+	}
 }
 
 new simplelightGallery_Front();
