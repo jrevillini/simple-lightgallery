@@ -5,7 +5,7 @@ Tags: lightGallery, gallery, photography, images, theme, template, style, jquery
 Requires at least: 5.3
 Tested up to: 5.8.1
 Requires PHP: 5.6.40
-Stable tag: 1.0.1
+Stable tag: 1.2.0
 
 An integration of lightGallery javascript v1 and v2 to WordPress
 
@@ -31,12 +31,14 @@ Some of lightGallery core features ([taken from lightGallery officialy site](htt
 
 1.  Select in which post_types and taxonomies you want the lightGallery to be loaded.
 1.  Make sure you are using the correct [markup](https://www.lightgalleryjs.com/docs/getting-started/#the-markup) and the appropriate [initialization](https://www.lightgalleryjs.com/docs/getting-started/#initialize-lightgallery) for your galleries.
+1.  If you want to use lightGallery with WP native `[gallery]` shortcode make sure to use it with the option `link="file"`.
 
 * For more usage tips, go to [lightGallery officialy site](https://www.lightgalleryjs.com/)
 
 == Installation ==
 
 1.  Install and activate Simple lightGallery plugin
+2.  Either use your own markup and code to initialize it on the frontend or enable the support for the WP `[gallery]` shortcode.
 
 = Credits =
 
@@ -45,9 +47,14 @@ Some of lightGallery core features ([taken from lightGallery officialy site](htt
 
 == Screenshots ==
 
-1.  lightGallery Customization Options
+1.  lightGallery Customization Options using v1 of the script
+1.  lightGallery Customization Options using v2 of the script
 
 == Changelog ==
+
+= 1.2.0 =
+
+* Add the option to use lightGallery with WP native `[gallery]` shortcode
 
 = 1.0.1 =
 
