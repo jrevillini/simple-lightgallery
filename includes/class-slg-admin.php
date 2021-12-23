@@ -117,7 +117,7 @@ class simplelightGallery_Admin {
 		}
 		?>
 		<input type="radio" name="simplelightGallery_settings[version]" class="version" value="1" <?php checked(1, $version, true); ?>>v1.10.0 (jQuery dependency)
-		<input type="radio" name="simplelightGallery_settings[version]" class="version" value="2" <?php checked(2, $version, true); ?>>v2.2.1
+		<input type="radio" name="simplelightGallery_settings[version]" class="version" value="2" <?php checked(2, $version, true); ?>>v2.3.0
 		<?php
 	}
 
