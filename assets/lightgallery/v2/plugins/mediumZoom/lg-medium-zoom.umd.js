@@ -1,5 +1,5 @@
 /*!
- * lightgallery | 2.3.0 | October 28th 2021
+ * lightgallery | 2.7.0 | October 9th 2022
  * http://www.lightgalleryjs.com/
  * Copyright (c) 2020 Sachin Neravath;
  * @license GPLv3
@@ -66,6 +66,9 @@
         rotateRight: 'lgRotateRight',
         flipHorizontal: 'lgFlipHorizontal',
         flipVertical: 'lgFlipVertical',
+        autoplay: 'lgAutoplay',
+        autoplayStart: 'lgAutoplayStart',
+        autoplayStop: 'lgAutoplayStop',
     };
 
     var mediumZoomSettings = {

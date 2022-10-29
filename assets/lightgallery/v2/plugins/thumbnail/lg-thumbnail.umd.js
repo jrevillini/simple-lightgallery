@@ -1,5 +1,5 @@
 /*!
- * lightgallery | 2.3.0 | October 28th 2021
+ * lightgallery | 2.7.0 | October 9th 2022
  * http://www.lightgalleryjs.com/
  * Copyright (c) 2020 Sachin Neravath;
  * @license GPLv3
@@ -52,6 +52,9 @@
         thumbnailSwipeThreshold: 10,
         loadYouTubeThumbnail: true,
         youTubeThumbSize: 1,
+        thumbnailPluginStrings: {
+            toggleThumbnails: 'Toggle thumbnails',
+        },
     };
 
     /**
@@ -83,6 +86,9 @@
         rotateRight: 'lgRotateRight',
         flipHorizontal: 'lgFlipHorizontal',
         flipVertical: 'lgFlipVertical',
+        autoplay: 'lgAutoplay',
+        autoplayStart: 'lgAutoplayStart',
+        autoplayStop: 'lgAutoplayStop',
     };
 
     var Thumbnail = /** @class */ (function () {
@@ -441,7 +447,9 @@
             var _this = this;
             if (this.settings.toggleThumb) {
                 this.core.outer.addClass('lg-can-toggle');
-                this.core.$toolbar.append('<button type="button" aria-label="Toggle thumbnails" class="lg-toggle-thumb lg-icon"></button>');
+                this.core.$toolbar.append('<button type="button" aria-label="' +
+                    this.settings.thumbnailPluginStrings['toggleThumbnails'] +
+                    '" class="lg-toggle-thumb lg-icon"></button>');
                 this.core.outer
                     .find('.lg-toggle-thumb')
                     .first()

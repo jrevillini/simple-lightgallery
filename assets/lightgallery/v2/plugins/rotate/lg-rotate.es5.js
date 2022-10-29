@@ -1,5 +1,5 @@
 /*!
- * lightgallery | 2.3.0 | October 28th 2021
+ * lightgallery | 2.7.0 | October 9th 2022
  * http://www.lightgalleryjs.com/
  * Copyright (c) 2020 Sachin Neravath;
  * @license GPLv3
@@ -60,6 +60,9 @@ var lGEvents = {
     rotateRight: 'lgRotateRight',
     flipHorizontal: 'lgFlipHorizontal',
     flipVertical: 'lgFlipVertical',
+    autoplay: 'lgAutoplay',
+    autoplayStart: 'lgAutoplayStart',
+    autoplayStop: 'lgAutoplayStop',
 };
 
 var rotateSettings = {
@@ -69,6 +72,12 @@ var rotateSettings = {
     rotateRight: true,
     flipHorizontal: true,
     flipVertical: true,
+    rotatePluginStrings: {
+        flipVertical: 'Flip vertical',
+        flipHorizontal: 'Flip horizontal',
+        rotateLeft: 'Rotate left',
+        rotateRight: 'Rotate right',
+    },
 };
 
 var Rotate = /** @class */ (function () {
@@ -83,20 +92,16 @@ var Rotate = /** @class */ (function () {
     Rotate.prototype.buildTemplates = function () {
         var rotateIcons = '';
         if (this.settings.flipVertical) {
-            rotateIcons +=
-                '<button type="button" id="lg-flip-ver" aria-label="flip vertical" class="lg-flip-ver lg-icon"></button>';
+            rotateIcons += "<button type=\"button\" id=\"lg-flip-ver\" aria-label=\"" + this.settings.rotatePluginStrings['flipVertical'] + "\" class=\"lg-flip-ver lg-icon\"></button>";
         }
         if (this.settings.flipHorizontal) {
-            rotateIcons +=
-                '<button type="button" id="lg-flip-hor" aria-label="Flip horizontal" class="lg-flip-hor lg-icon"></button>';
+            rotateIcons += "<button type=\"button\" id=\"lg-flip-hor\" aria-label=\"" + this.settings.rotatePluginStrings['flipHorizontal'] + "\" class=\"lg-flip-hor lg-icon\"></button>";
         }
         if (this.settings.rotateLeft) {
-            rotateIcons +=
-                '<button type="button" id="lg-rotate-left" aria-label="Rotate left" class="lg-rotate-left lg-icon"></button>';
+            rotateIcons += "<button type=\"button\" id=\"lg-rotate-left\" aria-label=\"" + this.settings.rotatePluginStrings['rotateLeft'] + "\" class=\"lg-rotate-left lg-icon\"></button>";
         }
         if (this.settings.rotateRight) {
-            rotateIcons +=
-                '<button type="button" id="lg-rotate-right" aria-label="Rotate right" class="lg-rotate-right lg-icon"></button>';
+            rotateIcons += "<button type=\"button\" id=\"lg-rotate-right\" aria-label=\"" + this.settings.rotatePluginStrings['rotateRight'] + "\" class=\"lg-rotate-right lg-icon\"></button>";
         }
         this.core.$toolbar.append(rotateIcons);
     };
@@ -110,17 +115,24 @@ var Rotate = /** @class */ (function () {
         // even after navigating to diferent slides
         this.rotateValuesList = {};
         // event triggered after appending slide content
-        this.core.LGel.on(lGEvents.afterAppendSlide + ".rotate", function (event) {
+        this.core.LGel.on(lGEvents.slideItemLoad + ".rotate", function (event) {
             var index = event.detail.index;
-            var imageWrap = _this.core
+            var rotateEl = _this.core
                 .getSlideItem(index)
-                .find('.lg-img-wrap')
-                .first();
-            imageWrap.wrap('lg-img-rotate');
-            _this.core
-                .getSlideItem(_this.core.index)
                 .find('.lg-img-rotate')
-                .css('transition-duration', _this.settings.rotateSpeed + 'ms');
+                .get();
+            if (!rotateEl) {
+                var imageWrap = _this.core
+                    .getSlideItem(index)
+                    .find('.lg-object')
+                    .first();
+                imageWrap.wrap('lg-img-rotate');
+                //this.rotateValuesList[this.core.index]
+                _this.core
+                    .getSlideItem(_this.core.index)
+                    .find('.lg-img-rotate')
+                    .css('transition-duration', _this.settings.rotateSpeed + 'ms');
+            }
         });
         this.core.outer
             .find('#lg-rotate-left')

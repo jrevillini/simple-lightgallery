@@ -4,8 +4,8 @@ License: GPLv2 or later
 Tags: lightGallery, gallery, photography, images, theme, template, style, jquery, photo gallery, responsive gallery
 Requires at least: 5.3
 Tested up to: 6.1
-Requires PHP: 5.6.40
-Stable tag: 1.3.0
+Requires PHP: 7.2
+Stable tag: 1.4.0
 
 An integration of lightGallery javascript v1 and v2 to WordPress
 
@@ -51,6 +51,10 @@ Some of lightGallery core features ([taken from lightGallery officialy site](htt
 1.  lightGallery Customization Options using v2 of the script
 
 == Changelog ==
+
+= 1.4.0 =
+
+* Update lightgallery to version 2.7.0
 
 = 1.3.0 =
 
