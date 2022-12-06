@@ -5,7 +5,7 @@ Tags: lightGallery, gallery, photography, images, theme, template, style, jquery
 Requires at least: 5.3
 Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 1.4.0
+Stable tag: 1.5.1
 
 An integration of lightGallery javascript v1 and v2 to WordPress
 
@@ -51,6 +51,15 @@ Some of lightGallery core features ([taken from lightGallery officialy site](htt
 1.  lightGallery Customization Options using v2 of the script
 
 == Changelog ==
+
+= 1.5.1 =
+
+* Code cleaning...
+
+= 1.5.0 =
+
+* Replace jQuery Chosen library with Select2
+* Add the option to auto-include the needed inline js code (for V1 only!)
 
 = 1.4.0 =
 
