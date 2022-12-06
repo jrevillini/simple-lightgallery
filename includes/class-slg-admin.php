@@ -22,7 +22,8 @@ class simplelightGallery_Admin {
 		//Hooks
 		add_action( 'admin_menu', array( $this, 'simplelightGallery_add_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'simplelightGallery_settings_init' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'jquery_chosen_enqueue_assets' ), -99 );
+		//add_action( 'admin_enqueue_scripts', array( $this, 'jquery_chosen_enqueue_assets' ), -99 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'select2_enqueue_assets' ), -99 );
 		add_action( 'admin_head', array( $this, 'simplelightGallery_action_javascript' ) );
 		
 		add_filter( 'plugin_action_links_' . simplelightGallery_PLUGIN_BASE,  array( $this, 'simplelightGallery_plugin_settings_link' ) );
@@ -183,6 +184,14 @@ class simplelightGallery_Admin {
 			wp_enqueue_script( 'jquery-chosen', plugin_dir_url( __DIR__ ) . 'assets/chosen/chosen.jquery.min.js', array( 'jquery' ), '2.2.1' );
 			wp_enqueue_script( 'jquery-chosen-lightgallery', plugin_dir_url( __DIR__ ) . 'assets/chosen/simple.lightgallery.chosen.js', array( 'jquery-chosen' ), '2.2.1' );
 			wp_enqueue_style( 'jquery-chosen', plugin_dir_url( __DIR__ ) . 'assets/chosen/chosen.min.css', array(), '2.2.1' );
+		}
+	}
+	
+	public function select2_enqueue_assets( $hook_suffix ) {
+		if ( 'settings_page_simple_lightgallery' == $hook_suffix ) {
+			wp_enqueue_script( 'select2', plugin_dir_url( __DIR__ ) . 'assets/select2/js/select2.min.js', array(), '4.0.13' );
+			wp_enqueue_script( 'select2-lightgallery', plugin_dir_url( __DIR__ ) . 'assets/select2/simple.lightgallery.select2.js', array( 'select2' ), '1.5.0' );
+			wp_enqueue_style( 'select2', plugin_dir_url( __DIR__ ) . 'assets/select2/css/select2.min.css', array(), '4.0.13' );
 		}
 	}
 	
