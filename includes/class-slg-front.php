@@ -12,6 +12,12 @@ class simplelightGallery_Front {
 	/** @var int The selected version. */
 	public static $version;
 
+	/** @var boolean Apply or not an inline js script */
+	public static $inline;
+	
+	/** @var array The selected selectors. */
+	public static $selected_selectors;
+	
 	/** @var array The selected post types. */
 	public static $selected_post_types;
 	
@@ -36,11 +42,13 @@ class simplelightGallery_Front {
 		}else{
 			self::$selected_post_types = array();
 		}
+		
 		if ( isset ( $options['lightgallery_taxonomies'] ) ) {
 			self::$selected_taxonomies = (array) $options['lightgallery_taxonomies'] ;
 		}else{
 			self::$selected_taxonomies = array();
 		}
+		
 		if ( isset ( $options['plugins'] ) ) {
 			self::$selected_plugins = (array) $options['plugins'] ;
 		}else{
@@ -51,6 +59,24 @@ class simplelightGallery_Front {
 			self::$version = $options['version'];
 		}else{
 			self::$version = 1;
+		}
+		
+		if ( isset( $options['inline'] ) ) {
+			self::$inline = true;
+		}else{
+			self::$inline = false;
+		}
+		
+		if ( isset ( $options['lightgallery_selectors'] ) ) {
+			self::$selected_selectors = (array) $options['lightgallery_selectors'] ;
+		}else{
+			self::$selected_selectors = array( '#lightgallery' );
+		}
+		
+		if ( isset ( $options['lightgallery_selectors'] ) ) {
+			self::$selected_selectors = (array) $options['lightgallery_selectors'] ;
+		}else{
+			self::$selected_selectors = array( '#lightgallery' );
 		}
 		
 		if ( isset( $options['wpgallery'] ) ) {
@@ -77,13 +103,22 @@ class simplelightGallery_Front {
 						wp_register_script( 'lightgallery-min', plugin_dir_url( __DIR__ ) . 'assets/lightgallery/v1/js/lightgallery.min.js', array( 'jquery' ), '1.10.0', true );
 						wp_enqueue_script( 'lightgallery-min' );
 						wp_enqueue_style( 'lightgallery', plugin_dir_url( __DIR__ ) . 'assets/lightgallery/v1/css/lightgallery.min.css', array(), '1.10.0', 'all');
+						
+						if ( self::$inline ) {
+							wp_add_inline_script( 'lightgallery-min', '
+																		jQuery(document).ready(function() {
+																			jQuery("' . implode(', ', self::$selected_selectors ) . '").lightGallery(); 
+																		});');
+						}
 						break;
 					case 2:
 						wp_register_script( 'lightgallery-min', plugin_dir_url( __DIR__ ) . 'assets/lightgallery/v2/lightgallery.min.js', array(), '2.7.0', false );
 						wp_enqueue_script( 'lightgallery-min' );
 						wp_enqueue_style( 'lightgallery', plugin_dir_url( __DIR__ ) . 'assets/lightgallery/v2/css/lightgallery-bundle.min.css', array(), '2.7.0', 'all');
+						$inline_plugins = array();
 
 						foreach ( self::$selected_plugins as $selected_plugin => $value ) {
+							$inline_plugins[] = $selected_plugin;
 							switch ( $selected_plugin ):
 								case 'autoplay':
 									wp_register_script( 'lightgallery-lg-autoplay-min', plugin_dir_url( __DIR__ ) . 'assets/lightgallery/v2/plugins/autoplay/lg-autoplay.min.js', array('lightgallery-min'), '2.7.0', false );
@@ -135,6 +170,11 @@ class simplelightGallery_Front {
 									break;
 							endswitch;
 						}
+						wp_add_inline_script( 'lightgallery-min', '
+																	lightGallery(document.getElementById("' . implode(', ', self::$selected_selectors ) . '"), {
+																		thumbnail: true,
+																		
+																	});');
 						break;
 				endswitch;
 			}

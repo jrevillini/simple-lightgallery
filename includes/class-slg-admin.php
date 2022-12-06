@@ -74,6 +74,25 @@ class simplelightGallery_Admin {
 			'pluginPage', 
 			'simplelightGallery_pluginPage_section' 
 		);
+		
+		
+		add_settings_field( 
+			'simplelightGallery_inline',
+			__( 'Auto add inline js code? (Only v1 compatible!)', 'simplelightGallery' ), 
+			array( $this, 'simplelightGallery_inline_render' ), 
+			'pluginPage', 
+			'simplelightGallery_pluginPage_section', 
+			array( 'class' => 'simplelightGallery_inline' )
+		);
+		
+		add_settings_field( 
+			'simplelightGallery_selectors',
+			__( 'Which selector(s) to use?', 'simplelightGallery' ), 
+			array( $this, 'simplelightGallery_selector_render' ), 
+			'pluginPage', 
+			'simplelightGallery_pluginPage_section' ,
+			array( 'class' => 'simplelightGallery_selectors' )
+		);
 
 		add_settings_field( 
 			'simplelightGallery_post_types',
@@ -119,6 +138,29 @@ class simplelightGallery_Admin {
 		?>
 		<input type="radio" name="simplelightGallery_settings[version]" class="version" value="1" <?php checked(1, $version, true); ?>>v1.10.0 (jQuery dependency)
 		<input type="radio" name="simplelightGallery_settings[version]" class="version" value="2" <?php checked(2, $version, true); ?>>v2.7.0
+		<?php
+	}
+	
+	public function simplelightGallery_inline_render() {
+		?>
+			<input type="checkbox" id="simplelightGallery_inline" class="simplelightGallery_inline" name="simplelightGallery_settings[inline]" value="1"<?php checked( isset ( self::$options['inline'] ) ); ?> />
+		<?php
+	}
+	
+	public function simplelightGallery_selector_render() { 
+
+		if ( isset( self::$options['lightgallery_selectors'] ) ) {
+			$selectors = (array) self::$options['lightgallery_selectors'];
+		}else{
+			$selectors = array( '#lightgallery' );
+		}
+		?>
+		<select name="simplelightGallery_settings[lightgallery_selectors][]" id="lightgallery_selectors" multiple>
+		<?php foreach ( $selectors as $selector ) { 
+		?>
+			<option value="<?php echo esc_attr( $selector ); ?>" selected="selected"><?php echo esc_attr( $selector ); ?></option>
+		<?php } ?>
+		</select>
 		<?php
 	}
 
@@ -200,18 +242,27 @@ class simplelightGallery_Admin {
 		jQuery(document).ready(function($) {
 
 			var version = $('input[type=radio][class=version]:checked').val();
+
 			if ( version == '1' ){
 				$('tr.simplelightGallery_plugins').hide();
+				$('tr.simplelightGallery_inline').show();
+				$('tr.simplelightGallery_selectors').show();
 			}
 			else if ( version == '2' ){
 				$('tr.simplelightGallery_plugins').show();
+				$('tr.simplelightGallery_inline').hide();
+				$('tr.simplelightGallery_selectors').hide();
 			}
 			$('input[type=radio][class=version]').change(function() {
 				if (this.value == '1') {
 					$('tr.simplelightGallery_plugins').hide();
+					$('tr.simplelightGallery_inline').show();
+					$('tr.simplelightGallery_selectors').show();
 				}
 				else if (this.value == '2') {
 					$('tr.simplelightGallery_plugins').show();
+					$('tr.simplelightGallery_inline').hide();
+					$('tr.simplelightGallery_selectors').hide();
 				}
 			});
 		});
