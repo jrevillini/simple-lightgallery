@@ -220,10 +220,11 @@ class simplelightGallery_Admin {
 		<?php
 	}
 	
+	
 	public function select2_enqueue_assets( $hook_suffix ) {
 		if ( 'settings_page_simple_lightgallery' == $hook_suffix ) {
 			wp_enqueue_script( 'select2', plugin_dir_url( __DIR__ ) . 'assets/select2/js/select2.min.js', array(), '4.0.13' );
-			wp_enqueue_script( 'select2-lightgallery', plugin_dir_url( __DIR__ ) . 'assets/select2/simple.lightgallery.select2.js', array( 'select2' ), '1.5.1' );
+			wp_enqueue_script( 'select2-lightgallery', plugin_dir_url( __DIR__ ) . 'assets/select2/simple.lightgallery.select2.js', array( 'select2' ), '1.5.0' );
 			wp_enqueue_style( 'select2', plugin_dir_url( __DIR__ ) . 'assets/select2/css/select2.min.css', array(), '4.0.13' );
 		}
 	}
