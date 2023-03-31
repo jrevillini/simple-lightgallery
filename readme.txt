@@ -3,7 +3,7 @@ Contributors: savvasha
 License: GPLv2 or later
 Tags: lightGallery, gallery, photography, images, theme, template, style, jquery, photo gallery, responsive gallery
 Requires at least: 5.3
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.2
 Stable tag: 1.5.2
 
