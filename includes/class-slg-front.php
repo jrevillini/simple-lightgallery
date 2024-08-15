@@ -27,6 +27,9 @@ class simplelightGallery_Front {
 	/** @var array The selected plugins. */
 	public static $selected_plugins;
 	
+	/** @var array How to map selected plugin names with script's names. */
+	public static $selected_plugins_names;
+	
 	/** @var int Apply to wp gallery shortcode. */
 	public static $wpgallery;
 
@@ -85,10 +88,26 @@ class simplelightGallery_Front {
 			self::$wpgallery = 0;
 		}
 		
+		self::$selected_plugins_names = array(
+										'autoplay'        => 'lgAutoplay',
+										'comment'         => 'lgComment',
+										'fullscreen'      => 'lgFullscreen',
+										'hash'            => 'lgHash',
+										'mediumZoom'      => 'lgMediumZoom',
+										'pager'           => 'lgPager',
+										'relativeCaption' => 'lgRelativeCaption',
+										'rotate'          => 'lgRotate',
+										'share'           => 'lgShare',
+										'thumbnail'       => 'lgThumbnail',
+										'video'           => 'lgVideo',
+										'zoom'            => 'lgZoom',
+		);
+		
 		//Hooks
 		add_action( 'wp_enqueue_scripts', array( $this, 'simplelightGallery_enqueue_properties_scripts' ) );
-		if ( self::$wpgallery )
+		if ( self::$wpgallery ) {
 			add_filter( 'the_content', array( $this, 'simplelightGallery_inline_js' ), 1 );
+		}
 	}
 	
 	public function simplelightGallery_enqueue_properties_scripts() {
@@ -183,7 +202,13 @@ class simplelightGallery_Front {
 	
 	public function simplelightGallery_inline_js( $content ) {
 		// Check if gallery shortcode is used
-		if ( !has_shortcode( $content, 'gallery' ) ) return $content;
+		if ( ! has_shortcode( $content, 'gallery' ) ) return $content;
+		// Which plugins to use.
+		$inline_plugins = array();
+		foreach ( self::$selected_plugins as $selected_plugin => $value ) {
+			$inline_plugins[] = self::$selected_plugins_names[ $selected_plugin ];
+		}
+		$inline_plugins_string = implode( ', ', $inline_plugins );
 		// Check if we're inside the main loop in a single Post.
 		if ( is_singular() && in_the_loop() && is_main_query() ) {
 			if ( in_array( get_post_type(), self::$selected_post_types ) || is_tax( self::$selected_taxonomies ) ) {
@@ -204,7 +229,7 @@ class simplelightGallery_Front {
 						$inline_script = "<script type=\"text/javascript\">
 											jQuery('.galleryid-$ID').each(function(i, obj) {
 												lightGallery(document.getElementById(jQuery(this).prop('id')), {
-													plugins: [lgZoom, lgThumbnail],
+													plugins: [$inline_plugins_string],
 													selector: 'a',
 												});
 											});

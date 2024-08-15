@@ -1,22 +1,22 @@
 === Simple lightGallery ===
 Contributors: savvasha
 License: GPLv2 or later
-Tags: lightGallery, gallery, photography, images, theme, template, style, jquery, photo gallery, responsive gallery
+Tags: lightGallery, gallery, photography, responsive, jQuery
 Requires at least: 5.3
-Tested up to: 6.3
+Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 1.5.2
+Stable tag: 1.6.0
 
-An integration of lightGallery javascript v1 and v2 to WordPress
+An integration of lightGallery JavaScript v1 and v2 to WordPress
 
 == Description ==
-An easy way to integrate either v1 or v2 of lightGallery javascript to Wordpress. lightGallery is a lightweight, modular, JavaScript library for creating beautiful image & video galleries for the web and the mobile
+An easy way to integrate either v1 or v2 of lightGallery JavaScript to WordPress. lightGallery is a lightweight, modular, JavaScript library for creating beautiful image & video galleries for the web and the mobile
 
 #### Features
 
 In **Settings > Simple lightGallery** you can find several options to control in which parts of your site the lightGallery will be loaded.
 
-Some of lightGallery core features ([taken from lightGallery officialy site](https://www.lightgalleryjs.com/docs/getting-started/))
+Some of lightGallery core features ([taken from lightGallery officially site](https://www.lightgalleryjs.com/docs/getting-started/))
 
 * Fully responsive.
 * Modular architecture with built in plugins.
@@ -33,7 +33,7 @@ Some of lightGallery core features ([taken from lightGallery officialy site](htt
 1.  Make sure you are using the correct [markup](https://www.lightgalleryjs.com/docs/getting-started/#the-markup) and the appropriate [initialization](https://www.lightgalleryjs.com/docs/getting-started/#initialize-lightgallery) for your galleries.
 1.  If you want to use lightGallery with WP native `[gallery]` shortcode make sure to use it with the option `link="file"`.
 
-* For more usage tips, go to [lightGallery officialy site](https://www.lightgalleryjs.com/)
+* For more usage tips, go to [lightGallery officially site](https://www.lightgalleryjs.com/)
 
 == Installation ==
 
@@ -52,6 +52,10 @@ Some of lightGallery core features ([taken from lightGallery officialy site](htt
 
 == Changelog ==
 
+= 1.6.0 =
+
+* Fix: lightGallery v2 Plugins are not working.
+
 = 1.5.1 =
 
 * Code cleaning...
@@ -63,11 +67,11 @@ Some of lightGallery core features ([taken from lightGallery officialy site](htt
 
 = 1.4.0 =
 
-* Update lightgallery to version 2.7.0
+* Update lightGallery to version 2.7.0
 
 = 1.3.0 =
 
-* Update lightgallery to version 2.3.0
+* Update lightGallery to version 2.3.0
 
 = 1.2.0 =
 
