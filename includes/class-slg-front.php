@@ -227,11 +227,27 @@ class simplelightGallery_Front {
 						break;
 					case 2:
 						$inline_script = "<script type=\"text/javascript\">
-											jQuery('.galleryid-$ID').each(function(i, obj) {
-												lightGallery(document.getElementById(jQuery(this).prop('id')), {
-													plugins: [$inline_plugins_string],
-													selector: 'a',
-												});
+											jQuery(document).ready(function() {
+											    // Select all divs with an ID starting with \"gallery-\"
+											    jQuery('div[id^=\"gallery-\"]').each(function() {
+											    	// For each gallery item within this gallery div
+													jQuery(this).find('.gallery-item').each(function() {
+														// Retrieve the text inside the figcaption element.
+														var caption = jQuery(this).find('figcaption').text();
+														// Add the data-sub-html attribute to the corresponding <a> element
+														jQuery(this).find('a').attr('data-sub-html', caption);
+													});
+											    	// Get the ID of the current div
+											    	var id = jQuery(this).attr('id');
+											    	// Use a regular expression to extract the number from the ID
+											    	var number = id.match(/\d+/)[0];
+											        // Do something with each selected div
+											    	lightGallery(document.getElementById(id), {
+														plugins: [$inline_plugins_string],
+														selector: 'a',
+														galleryId: number,
+													});
+											    });
 											});
 										</script>";
 						break;

@@ -5,7 +5,7 @@ Tags: lightGallery, gallery, photography, responsive, jQuery
 Requires at least: 5.3
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 
 An integration of lightGallery JavaScript v1 and v2 to WordPress
 
@@ -51,6 +51,11 @@ Some of lightGallery core features ([taken from lightGallery officially site](ht
 1.  lightGallery Customization Options using v2 of the script
 
 == Changelog ==
+
+= 1.6.1 =
+
+* Fix: Hash plugin is not working on multiple galleries.
+* Fix: Image captions are not shown at slideshow.
 
 = 1.6.0 =
 
