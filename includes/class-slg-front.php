@@ -227,29 +227,30 @@ class simplelightGallery_Front {
 						break;
 					case 2:
 						$inline_script = "<script type=\"text/javascript\">
-											jQuery(document).ready(function() {
-											    // Select all divs with an ID starting with \"gallery-\"
-											    jQuery('div[id^=\"gallery-\"]').each(function() {
-											    	// For each gallery item within this gallery div
-													jQuery(this).find('.gallery-item').each(function() {
+											document.addEventListener('DOMContentLoaded', function() {
+												// Select all divs with an ID starting with 'gallery-'
+												document.querySelectorAll('div[id^=\"gallery-\"]').forEach(function(galleryDiv) {
+													// For each gallery item within this gallery div
+													galleryDiv.querySelectorAll('.gallery-item').forEach(function(galleryItem) {
 														// Retrieve the text inside the figcaption element.
-														var caption = jQuery(this).find('figcaption').text();
+														var caption = galleryItem.querySelector('figcaption')?.textContent || '';
 														// Add the data-sub-html attribute to the corresponding <a> element
-														jQuery(this).find('a').attr('data-sub-html', caption);
+														galleryItem.querySelector('a').setAttribute('data-sub-html', caption);
 													});
-											    	// Get the ID of the current div
-											    	var id = jQuery(this).attr('id');
-											    	// Use a regular expression to extract the number from the ID
-											    	var number = id.match(/\d+/)[0];
-											        // Do something with each selected div
-											    	lightGallery(document.getElementById(id), {
+													// Get the ID of the current div
+													var id = galleryDiv.getAttribute('id');
+													// Use a regular expression to extract the number from the ID
+													var number = id.match(/\\d+/)[0];
+													// Initialize lightGallery
+													lightGallery(galleryDiv, {
 														plugins: [$inline_plugins_string],
 														selector: 'a',
 														galleryId: number,
 													});
-											    });
+												});
 											});
 										</script>";
+
 						break;
 				endswitch;
 				return $content . $inline_script;
