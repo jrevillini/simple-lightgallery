@@ -243,7 +243,7 @@ class simplelightGallery_Admin {
 			else if ( version == '2' ){
 				$('tr.simplelightGallery_plugins').show();
 				$('tr.simplelightGallery_inline').hide();
-				$('tr.simplelightGallery_selectors').hide();
+				$('tr.simplelightGallery_selectors').show();
 			}
 			$('input[type=radio][class=version]').change(function() {
 				if (this.value == '1') {
@@ -254,7 +254,7 @@ class simplelightGallery_Admin {
 				else if (this.value == '2') {
 					$('tr.simplelightGallery_plugins').show();
 					$('tr.simplelightGallery_inline').hide();
-					$('tr.simplelightGallery_selectors').hide();
+					$('tr.simplelightGallery_selectors').show();
 				}
 			});
 		});
