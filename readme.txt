@@ -5,7 +5,7 @@ Tags: lightGallery, gallery, photography, responsive, jQuery
 Requires at least: 5.3
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 
 An integration of lightGallery JavaScript v1 and v2 to WordPress
 
@@ -52,7 +52,7 @@ Some of lightGallery core features ([taken from lightGallery officially site](ht
 
 == Changelog ==
 
-= 1.7.1 =
+= 1.7.2 =
 
 * Fix: Remove jQuery dependency from v2 code
 

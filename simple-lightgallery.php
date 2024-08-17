@@ -4,7 +4,7 @@ Plugin Name: Simple lightGallery
 Description: An integration of lightGallery JavaScript v1 and v2 to WordPress
 Author: Savvas
 Author URI: https://profiles.wordpress.org/savvasha/
-Version: 1.7.1
+Version: 1.7.2
 Requires at least: 5.3
 Requires PHP: 7.4
 License: GPL v2 or later
@@ -20,7 +20,7 @@ if ( ! class_exists( 'Simple_lightGallery' ) ) :
  * Main Simple lightGallery Class
  *
  * @class Simple_lightGallery
- * @version	1.7.1
+ * @version	1.7.2
  */
 class Simple_lightGallery {
 
